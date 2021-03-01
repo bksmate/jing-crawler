@@ -1,10 +1,8 @@
-package org.jing.crawler;
+package org.jing.crawler.ec;
 
 import org.jing.core.lang.BaseDto;
 import org.jing.core.lang.Carrier;
 import org.jing.core.lang.JingException;
-
-import java.util.Date;
 
 /**
  * Description: <br>

@@ -1,4 +1,4 @@
-package org.jing.crawler;
+package org.jing.crawler.ec;
 
 import org.jing.core.util.GenericUtil;
 

@@ -1,12 +1,9 @@
 package org.jing.crawler.ec;
 
-import org.jing.core.lang.Carrier;
 import org.jing.core.lang.ExceptionHandler;
 import org.jing.core.lang.JingException;
 import org.jing.core.logger.JingLogger;
-import org.jing.core.util.CarrierUtil;
-import org.jing.core.util.FileUtil;
-import org.jing.crawler.Const;
+import org.jing.core.util.StringUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,9 +12,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Description: 168比价网 <br>
@@ -52,7 +50,9 @@ import java.util.Map;
 
         // 请求历史数据
         String jsContent = request4History(json, historyMap);
-        System.out.println(jsContent);
+
+        // 解析js
+        analyzeJavaScript(jsContent, goods);
     }
 
     private String buildRequestUrl(String httpUrl) throws JingException {
@@ -121,35 +121,69 @@ import java.util.Map;
     }
 
     private String request4History(String json, Map<String, String> headerMap) throws JingException {
-        Carrier jsonC = CarrierUtil.jsonContent2Carrier(json);
-        String codeId = jsonC.getString("code", "");
+        Pattern pattern = Pattern.compile("\"code\":\"(.*?)\"");
+        Matcher matcher = pattern.matcher(json);
+        if (matcher.find()) {
+            String codeId = matcher.group(1);
+            ExceptionHandler.checkNull(codeId, "empty code");
 
-        ExceptionHandler.checkNull(codeId, "empty code");
-
-        String url = HISTORY_URL_PREFIX + codeId;
-        try {
-            Document document = Jsoup.connect(url).headers(headerMap).get();
-            return document.getElementsByTag("body").text();
+            String url = HISTORY_URL_PREFIX + codeId;
+            try {
+                Document document = Jsoup.connect(url).headers(headerMap).get();
+                return document.getElementsByTag("body").text();
+            }
+            catch (Exception e) {
+                throw new JingException(e);
+            }
         }
-        catch (Exception e) {
-            throw new JingException(e);
+        else {
+            throw new JingException("Invalid code");
         }
     }
 
-    public static void main(String[] args) throws JingException {
-        String configPath = Const.CONFIG_PATH + "/goods.xml";
-        LOGGER.imp("Read config: {}", configPath);
-        Carrier goodsC = CarrierUtil.string2Carrier(FileUtil.readFile(configPath));
-        int count = goodsC.getCount("goods");
-        LOGGER.imp("Find {} goods", count);
-        ArrayList<GoodsDto> goodsList = new ArrayList<>();
-        Carrier perC;
-        for (int i$ = 0; i$ < count; i$++) {
-            perC = goodsC.getCarrier("goods", i$);
-            goodsList.add(GoodsDto.fromC(perC));
+    private void analyzeJavaScript(String jsContent, GoodsDto goods) throws JingException {
+        Pattern p$1 = Pattern.compile("\\$\\(\"#titleId\"\\)\\.html\\(\"(.*?)\"\\);");
+        Matcher m$1 = p$1.matcher(jsContent);
+
+        ExceptionHandler.publishIfMatch(!m$1.find(), "Invalid php response: cannot find fullName");
+        String fullName = m$1.group(1);
+
+        Pattern p$2 = Pattern.compile("chart\\('(.*)', 'https:.*?', 'pc'\\)");
+        Matcher m$2 = p$2.matcher(jsContent);
+
+        ExceptionHandler.publishIfMatch(!m$2.find(), "Invalid php response: cannot find dataList");
+        String dataList = m$2.group(1);
+
+        Pattern p$3 = Pattern.compile("\\[Date.UTC\\((\\d+?).(\\d+?).(\\d+?)\\),(.*?),\"(.*?)\"]");
+        Matcher m$3 = p$3.matcher(dataList);
+
+        PriceDto currP = null, maxP = null, minP = null;
+        HashMap<String, PriceDto> eventMap = new HashMap<>();
+        while (m$3.find()) {
+            currP = new PriceDto().setRecordDate(
+                String.format("%s-%s-%s", m$3.group(1), String.format("%02d", StringUtil.parseInteger(m$3.group(2)) + 1), String.format("%02d", StringUtil.parseInteger(m$3.group(3)))))
+                .setAmount(StringUtil.parseFloat(m$3.group(4))).setEvent(m$3.group(5));
+            if (minP == null || minP.getAmount() >= currP.getAmount()) {
+                minP = currP;
+            }
+            if (maxP == null || maxP.getAmount() <= currP.getAmount()) {
+                maxP = currP;
+            }
+            for (String keyDay : Const.EVENT_DAYS) {
+                if (currP.getRecordDate().endsWith(keyDay)) {
+                    eventMap.put(keyDay, currP);
+                }
+            }
         }
-        for (GoodsDto goods : goodsList) {
-            new Tool168(goods);
+
+        if (null == currP) {
+            return;
         }
+
+        goods.setFullName(fullName);
+        goods.setCurrP(currP);
+        goods.setMaxP(maxP);
+        goods.setMinP(minP);
+        goods.setEventMap(eventMap);
     }
 }

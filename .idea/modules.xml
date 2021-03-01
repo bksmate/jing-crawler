@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/crawler-jd.iml" filepath="$PROJECT_DIR$/crawler-jd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jing-crawler.iml" filepath="$PROJECT_DIR$/jing-crawler.iml" />
     </modules>
   </component>
 </project>

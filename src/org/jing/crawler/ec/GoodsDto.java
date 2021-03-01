@@ -5,6 +5,8 @@ import org.jing.core.lang.Carrier;
 import org.jing.core.lang.JingException;
 import org.jing.core.util.StringUtil;
 
+import java.util.HashMap;
+
 /**
  * Description: <br>
  *
@@ -19,6 +21,42 @@ public class GoodsDto extends BaseDto {
     private float focus;
 
     private String fullName;
+
+    private PriceDto currP, maxP, minP;
+
+    private HashMap<String, PriceDto> eventMap;
+
+    public PriceDto getCurrP() {
+        return currP;
+    }
+
+    public void setCurrP(PriceDto currP) {
+        this.currP = currP;
+    }
+
+    public PriceDto getMaxP() {
+        return maxP;
+    }
+
+    public void setMaxP(PriceDto maxP) {
+        this.maxP = maxP;
+    }
+
+    public PriceDto getMinP() {
+        return minP;
+    }
+
+    public void setMinP(PriceDto minP) {
+        this.minP = minP;
+    }
+
+    public HashMap<String, PriceDto> getEventMap() {
+        return eventMap;
+    }
+
+    public void setEventMap(HashMap<String, PriceDto> eventMap) {
+        this.eventMap = eventMap;
+    }
 
     public String getName() {
         return name;
