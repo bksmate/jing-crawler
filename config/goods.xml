@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jing>
+    <output>H:\D\Documents\Desktop\output.xml</output>
+    <goods>
+        <name>珂润（Curel）润浸保湿洁颜泡沫 150ml</name>
+        <url>https://item.jd.com/1750038.html</url>
+        <focus>65</focus>
+    </goods>
+    <goods>
+        <name>芙丽芳丝(freeplus) 净润洗面奶</name>
+        <url>https://npcitem.jd.hk/3087293.html</url>
+        <focus>75</focus>
+    </goods>
+    <!--<goods>
+        <name>珂润（Curel）润浸保湿洁颜泡沫 150ml</name>
+        <id>1750038</id>
+        <code>0f72c0c84e6f722d651a499694414adae2a0248e1330e0d509e5a6479adb847276933ff2cdab8ad0</code>
+        <method>post</method>
+        <merchantUrl>https://item.jd.com/1750038.html</merchantUrl>
+        <lower>65</lower>
+    </goods>
+    <goods>
+        <name>芙丽芳丝(freeplus) 净润洗面奶</name>
+        <id>1750038</id>
+        <code>0f72c0c84e6f722dc05a87824de26a9f8f39e0953cb88600dae78e3a9d3cde0343e3450c3ace5b2b</code>
+        <method>post</method>
+        <merchantUrl>https://npcitem.jd.hk/3087293.html</merchantUrl>
+        <lower>75</lower>
+    </goods>-->
+</jing>

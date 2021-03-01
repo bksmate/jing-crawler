@@ -1,0 +1,11 @@
+Accept: application/json, text/javascript, */*; q=0.01
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9
+Connection: keep-alive
+Content-Length: 92
+Content-Type: application/x-www-form-urlencoded
+Cookie: DWS=8979; PHPSESSID=cj9e7q7tgt2m0r6ggmhg9j3b51; Hm_lvt_61e842dc51946642fa309fd4e1c752aa=1614043118,1614043336,1614312226; NLRAF=true; Hm_lpvt_61e842dc51946642fa309fd4e1c752aa=1614588980
+Host: www.tool168.cn
+Origin: http://www.tool168.cn
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3861.400 QQBrowser/10.7.4313.400
+X-Requested-With: XMLHttpRequest
