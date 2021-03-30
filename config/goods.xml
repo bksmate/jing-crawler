@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <jing>
-    <output>F:\D\Doc</output>
+    <output>files</output>
     <goods>
         <name>珂润（Curel）润浸保湿洁颜泡沫 150ml</name>
         <url>https://item.jd.com/1750038.html</url>
@@ -13,8 +13,38 @@
         <focus>75</focus>
     </goods>
     <goods>
-        <name>孟非的红油面皮</name>
-        <url>https://detail.tmall.com/item.htm?id=637070057321</url>
-        <focus>13</focus>
+        <name>【官方旗舰】索尼 WI-1000XM2</name>
+        <url>https://item.jd.com/100005902443.html</url>
+        <focus>1500</focus>
+    </goods>
+    <goods>
+        <name>【京东自营】索尼 WI-1000XM2</name>
+        <url>https://item.jd.com/63707892838.html</url>
+        <focus>1500</focus>
+    </goods>
+    <goods>
+        <name>【京东自营】Apple AirPods Pro</name>
+        <url>https://item.jd.com/100009691096.html</url>
+        <focus>1500</focus>
+    </goods>
+    <goods>
+        <name>【京东国际】Apple AirPods Pro</name>
+        <url>https://item.jd.com/100002497148.html</url>
+        <focus>1200</focus>
+    </goods>
+    <goods>
+        <name>飘柔护发素</name>
+        <url>https://detail.tmall.com/item.htm?id=8078301929</url>
+        <focus>25</focus>
+    </goods>
+    <goods>
+        <name>武汉天元鲤鱼竿</name>
+        <url>https://detail.tmall.com/item.htm?id=540833032100&amp;skuId=3408403267644</url>
+        <focus>500</focus>
+    </goods>
+    <goods>
+        <name>小海马</name>
+        <url>https://item.taobao.com/item.htm?id=630709932463</url>
+        <focus>250</focus>
     </goods>
 </jing>
